@@ -23,6 +23,8 @@
     <link rel="stylesheet"
         href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/slim-cropping-plugin/example/css/slim.min.css') }}">
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -100,6 +102,7 @@
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('backend/plugins/slim-cropping-plugin/example/js/slim.kickstart.min.js') }}"></script>
 
     <script>
         $(document).on("click", "#delete", function(e) {
@@ -164,6 +167,8 @@
             }
             toastr.info("{{ session('info') }}");
         @endif
+
+
 
         @if (Session::has('warning'))
             toastr.options = {

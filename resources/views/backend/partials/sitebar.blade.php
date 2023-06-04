@@ -47,8 +47,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview  {{ request()->is('admin/category/list') ? 'active' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('admin/category/list') ? 'active' : '' }}">
+                <li class="nav-item has-treeview  {{ isActive(['admin/category/list','admin/sub-category/list']) }}">
+                    <a href="#" class="nav-link {{ isActive(['admin/category/list','admin/sub-category/list']) }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Category
@@ -58,9 +58,16 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.category.list') }}"
-                                class="nav-link {{ request()->is('admin/category/list') ? 'active' : '' }}">
+                                class="nav-link {{ isActive('admin/category/list') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Category List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.sub.category.list') }}"
+                                class="nav-link {{ isActive('admin/sub-category/list') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sub Category List</p>
                             </a>
                         </li>
                     </ul>

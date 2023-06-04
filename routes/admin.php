@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\admin\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\Category;
+use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\AdminLoginController;
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,21 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
                     ->as('category.')
                     ->group(function () {
             Route::get('list', 'index')->name('list');
+            Route::post('store', 'store')->name('store');
+            Route::get('delete/{id}', 'destroy')->name('destroy');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update', 'update')->name('update');
+        });
+
+    Route::controller(SubCategoryController::class)
+        ->prefix('sub-category')
+        ->as('sub.category.')
+        ->group(function () {
+            Route::get('list', 'index')->name('list');
+//            Route::post('store', 'store')->name('store');
+//            Route::get('delete/{id}', 'destroy')->name('destroy');
+//            Route::get('edit/{id}', 'edit')->name('edit');
+//            Route::post('update', 'update')->name('update');
         });
 
 });
