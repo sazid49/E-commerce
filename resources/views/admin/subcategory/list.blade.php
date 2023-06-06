@@ -29,41 +29,41 @@
                             <div class="card-header">
                                 <h3 class="card-title">All Category</h3>
                                 <button class="btn btn-sm btn-primary float-right" data-toggle="modal"
-                                        data-target="#exampleModal">Add</button>
+                                    data-target="#subcategory">Add</button>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
                                     <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Slug</th>
-                                        <th>Parent Category</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Slug</th>
+                                            <th>Parent Category</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($scategory as $key => $category)
-                                        <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $category->name }}
-                                            </td>
-                                            <td>{{ $category->slug }}</td>
-                                            <td>{{ $category->category->name }}</td>
-                                            <td><img src="{{ asset('storage/uploads/category') }}/{{ $category->image }}"
-                                                     alt="" width="200px"></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm edit" data-id={{ $category->id }}
+                                        @foreach ($scategories as $key => $scategory)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $scategory->name }}
+                                                </td>
+                                                <td>{{ $scategory->slug }}</td>
+                                                <td>{{ $scategory->category->name }}</td>
+                                                <td><img src="{{ asset('storage/uploads/category') }}/{{ $scategory->image }}"
+                                                        alt="" width="200px"></td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm edit" data-id={{ $scategory->id }}
                                                         data-toggle="modal" data-target="#EditModal"><i
-                                                        class="fas fa-edit"></i></button>
-                                                <a href="{{ route('admin.category.destroy', $category->id) }}"
-                                                   class="btn btn-danger btn-sm" id="delete"><i
-                                                        class="fas fa-trash-alt"></i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                            class="fas fa-edit"></i></button>
+                                                    <a href="{{ route('admin.sub.category.destroy', $scategory->id) }}"
+                                                        class="btn btn-danger btn-sm" id="delete"><i
+                                                            class="fas fa-trash-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     {{-- <tfoot>
                                         <tr>
@@ -88,19 +88,28 @@
         </section>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="subcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('admin.category.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.sub.category.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Category Form</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Sub Category Form</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Category Name :<i class="text-danger text-bold">*</i></label>
+                            <select name="category_id" id="" class="form-control select2">
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Name :<i class="text-danger text-bold">*</i></label>
                             <input type="text" name="name" class="form-control" placeholder="Name">
@@ -109,10 +118,10 @@
                             <label for="">Slug :<i class="text-danger text-bold">*</i></label>
                             <input type="text" name="slug" class="form-control" placeholder="slug">
                         </div> --}}
-                        <div class="form-group slim" data-ratio="2:1" data-size="75,75" data-max-file-size="3">
+                        {{-- <div class="form-group slim" data-ratio="2:1" data-size="75,75" data-max-file-size="3">
                             <label for="">Image :</label>
                             <input type="file" name="slim[]" class="form-control" placeholder="slug">
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -125,58 +134,30 @@
 
     <!--Edit Modal -->
     <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('admin.category.update') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Category Form</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="">Name :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="name" class="form-control" id="category_name"
-                                   placeholder="Name">
-                            <input type="hidden" name="id" class="form-control" id="id"
-                                   placeholder="id">
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="">Slug :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="slug" class="form-control" placeholder="slug">
-                        </div> --}}
-                        <div class="form-group slim" data-ratio="2:1" data-instant-edit="true">
-                            <label for="">Image :</label>
-                            <input type="file" name="slim[]" class="form-control">
-                        </div>
-                        <div class="form-group mt-1">
-                            <label for="">Old Image :</label>
-                            <img id="image" src="" alt="Image" width="300px">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sub Category Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="model_body">
+
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script>
         $('body').on('click', '.edit', function() {
-            var cat_id = $(this).data('id');
-            $.get("edit/" + cat_id, function(data) {
+            var scat_id = $(this).data('id');
+            $.get("edit/" + scat_id, function(data) {
                 console.log(data);
-                var imagePath = "{{ asset('storage/uploads/category') }}/" + data.image;
-                $('#category_name').val(data.name);
-                $('#id').val(data.id);
-                $('#image').attr('src', imagePath);
+                $('#model_body').html(data);
             });
         });
     </script>
