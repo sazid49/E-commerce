@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public  function __construct(CategoryService $categoryService){
             $this->categoryservice = $categoryService;
     }
-    public function index()
+    public function index()  
     {
         $categories = $this->categoryservice->getAllCategory();
         return view('admin.category.list',compact('categories'));
