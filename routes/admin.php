@@ -38,8 +38,8 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
         ->prefix('sub-category')
         ->as('sub.category.')
         ->group(function () {
-            Route::get('list', 'index')->name('list');
-            Route::post('store', 'store')->name('store');
+           Route::get('list', 'index')->name('list');
+           Route::post('store', 'store')->name('store');
            Route::get('delete/{id}', 'destroy')->name('destroy');
            Route::get('edit/{id}', 'edit')->name('edit');
            Route::post('update', 'update')->name('update');
@@ -48,18 +48,18 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
         ->prefix('child-category')
         ->as('child.category.')
         ->group(function () {
-            Route::get('list', 'index')->name('list');
-            Route::post('store', 'store')->name('store');
+           Route::get('list', 'index')->name('list');
+           Route::post('store', 'store')->name('store');
            Route::get('delete/{id}', 'destroy')->name('destroy');
            Route::get('edit/{id}', 'edit')->name('edit');
-           Route::post('update', 'update')->name('update');
+           Route::patch('update', 'update')->name('update');
         });
         Route::controller(BrandController::class)
         ->prefix('brand')
         ->as('brand.')
         ->group(function () {
-            Route::get('list', 'index')->name('list');
-            Route::post('store', 'store')->name('store');
+           Route::get('list', 'index')->name('list');
+           Route::post('store', 'store')->name('store');
            Route::get('delete/{id}', 'destroy')->name('destroy');
            Route::get('edit/{id}', 'edit')->name('edit');
            Route::post('update', 'update')->name('update');

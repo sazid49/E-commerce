@@ -74,7 +74,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('admin.sub.category.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.child.category.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Child Category Form</h5>
@@ -120,7 +120,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sub Category Form</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Child Category Edit Form</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -172,9 +172,10 @@
                 ]
             });
         });
+
         $('body').on('click', '.edit', function() {
-            var scat_id = $(this).data('id');
-            $.get("edit/" + scat_id, function(data) {
+            var childcat_id = $(this).data('id');
+            $.get("edit/" + childcat_id, function(data) {
                 console.log(data);
                 $('#model_body').html(data);
             });

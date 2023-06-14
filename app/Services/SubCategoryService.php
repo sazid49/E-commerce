@@ -30,7 +30,7 @@ class SubCategoryService{
         } catch (Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
-            throw new GeneralException(__('There was a problem creating the company.'));
+            throw new GeneralException(__('There was a problem creating the subcategory.'));
         }
         DB::commit();
         return $subcategory;

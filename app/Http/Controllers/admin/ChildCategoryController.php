@@ -8,10 +8,19 @@ use Illuminate\Http\Request;
 use App\Models\ChildCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChildCategoryRequest;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Services\ChildCategoryService;
 
 class ChildCategoryController extends Controller
-{
+{   
+   protected $childcategoryservice;
+
+    public function __construct(ChildCategoryService $childCategoryService)
+    {
+         $this->childcategoryservice=$childCategoryService;
+    }
     public function index(Request $request)
     {  
       if($request->ajax())
@@ -24,9 +33,9 @@ class ChildCategoryController extends Controller
         return DataTables::of($data)
                            ->addIndexColumn()
                            ->addColumn('action',function($row){
-                             $actionBtn='<a class="btn btn-info btn-sm edit" data-id="{{ $row->id }}" 
+                             $actionBtn='<a  class="btn btn-info btn-sm edit" data-id="'.$row->id.'" 
                                               data-toggle="modal" data-target="#EditModal"><i class="fas fa-edit"></i></a>
-                                                 <a href="#"
+                                                 <a href="'.route('admin.child.category.destroy',$row->id).'"
                                                   class="btn btn-danger btn-sm" id="delete">
                                                   <i class="fas fa-trash-alt"></i></a>';
                              return $actionBtn;
@@ -40,20 +49,32 @@ class ChildCategoryController extends Controller
       return view('admin.childcategory.list',compact('categories'));
     }
 
-    public function store()
-    {
-        
+    public function store(ChildCategoryRequest $request)
+    {     
+          $categoryId= SubCategory::where('id',$request->subcategory_id)->select('category_id')->first();
+          $this->childcategoryservice->store($request->except('_token', '_method'),$categoryId);
+          return back()->with(['info'=>'Child category added successfully done!']);
+ 
     }
-    public function edit()
-    {
-        
+    public function edit($id)
+    {    
+         $categories = Category::query()->get();
+         $data = ChildCategory::query()->find($id);
+        return view('admin.childcategory.edit',compact('categories','data'));
     }
-    public function update()
-    {
-        
+    public function update(ChildCategoryRequest $request)
+    {    
+         $childCategory = ChildCategory::query()->where('id',$request->id)->first();
+        //  dd($childCategory->toArray());
+         $cid = SubCategory::query()->where('id',$request->subcategory_id)->select('category_id')->first();
+         $this->childcategoryservice->update($request->except('_token', '_method'),$childCategory,$cid);
+        return back()->with(['info'=>'This item update successfully done!']);
+
     } 
-    public function destroy()
+    public function destroy($id)
     {
-        
+        $childCategory = ChildCategory::query()->findOrFail($id)->delete();
+        return back()->with(['info'=>'This item deleted successfully done!']);
+
     }
 }
