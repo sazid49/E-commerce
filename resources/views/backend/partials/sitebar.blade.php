@@ -48,9 +48,9 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item has-treeview  {{ isActive(['admin/category/list', 'admin/sub-category/list', 'admin/child-category/list']) }}">
+                    class="nav-item has-treeview  {{ isActive(['admin/category/list', 'admin/sub-category/list', 'admin/child-category/list', 'admin/brand/list']) }}">
                     <a href="#"
-                        class="nav-link {{ isActive(['admin/category/list', 'admin/sub-category/list', 'admin/child-category/list']) }}">
+                        class="nav-link {{ isActive(['admin/category/list', 'admin/sub-category/list', 'admin/child-category/list', 'admin/brand/list']) }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Category
@@ -80,7 +80,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.brand.list') }}"
+                                class="nav-link {{ isActive('admin/brand/list') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Brand</p>
                             </a>
