@@ -37,11 +37,11 @@ class SubCategoryService{
     
   }
 
-  public function update($data=[],$subcategory)
+  public function update(SubCategory $subCategory ,$data): SubCategory
   {
     DB::beginTransaction();
         try {
-          $subcategory->update([
+          $subCategory->update([
                     'name'=>$data['name'] ?? '',
                     'slug'=>Str::slug($data['name']) ?? '',
                     'category_id'=>$data['category_id'] ?? '',
@@ -53,7 +53,18 @@ class SubCategoryService{
             throw new GeneralException(__('There was a problem creating the company.'));
         }
         DB::commit();
-        return $subcategory;
+        return $subCategory;
+  }
+
+  public function getId($id)
+  {
+       return SubCategory::query()->find($id);
+  }
+
+
+  public function destroy(SubCategory $subcategory)
+  {
+      return $subcategory->delete();
   }
 
 }

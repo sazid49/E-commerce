@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Brand;
 use DataTables;
+use App\Models\Brand;
 use Illuminate\Http\Request;
+use App\Services\BrandService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\BrandRequest;
+use App\Http\Controllers\Controller;
 
 
 class BrandController extends Controller
-{
-    public function __construct()
+{   
+    public $brandservice;
+    public function __construct(BrandService $brandService)
     {
         $this->middleware('auth');
+        $this->brandservice=$brandService;
     }
 
     public function index(Request $request)
@@ -34,14 +38,13 @@ class BrandController extends Controller
                            ->rawColumns(['action'])
                            ->make(true);
         }
-        $brands = Brand::query()->get();
-
         return view('admin.brand.list');
     }
 
-    public function store(Request $request)
+    public function store(BrandRequest $request)
     {
-        dd($request->logo);
+        $this->brandservice->store($request->except('_token','_method'));  
+        return back();
     }
     
     public function edit($id)
@@ -56,8 +59,15 @@ class BrandController extends Controller
         
     }
     
-    public function destroy()
+    public function destroy($id)
     {
-        
+        $brand = $this->brandservice->getId($id);
+        if(!$brand){
+            return back()->with(['info'=>'this item not available']);
+        }else{
+            $this->brandservice->destory($brand);
+            return back()->with(['info'=>'this item delete success!']);
+
+        }
     }
 }

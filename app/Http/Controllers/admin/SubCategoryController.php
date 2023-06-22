@@ -27,7 +27,7 @@ class SubCategoryController extends Controller
 
     public function store(SubCategoryRequest $request)
     {
-        $this->subcategoryservice->store($request->except('_token', '_method'));
+        $this->subcategoryservice->store($request->all());
         return back()->with(['info'=>'Sub Category added successfully done!']);
 
     }
@@ -40,15 +40,22 @@ class SubCategoryController extends Controller
     }
 
     public function update(SubCategoryRequest $request)
-    {
-       $subcategory = SubCategory::query()->where('id',$request->id)->first();
-        $this->subcategoryservice->update($request->except('_token', '_method'),$subcategory);
+    {  
+        $subcategory = $this->subcategoryservice->getId($request->id);
+    //    $subcategory = SubCategory::query()->where('id',$request->id)->first();
+        $this->subcategoryservice->update($subcategory,$request->all());
         return back()->with(['info'=>'Category update successfully done!']);
     }
 
+
     public function destroy($id)
-    {
-        SubCategory::query()->find($id)->delete();
+    {   
+        $subcategory = $this->subcategoryservice->getId($id);
+        if(!$subcategory){
+            return back()->with(['info'=>'this item not available']);
+        }else{
+            $this->subcategoryservice->destroy($subcategory);
+        } 
         return back()->with(['info'=>'This item deleted successfully done!']);
 
     }

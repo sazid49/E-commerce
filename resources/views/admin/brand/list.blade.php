@@ -141,7 +141,7 @@
                     {
                         data: 'logo',
                         name: 'logo',
-                        render: function(data, meta, type, full) {
+                        render: function(data, type, full, meta) {
                             return "<img src=\"" + data +
                                 "\" height=\"40\" class=\"rounded-circle\" />"
                         }

@@ -36,7 +36,7 @@ class ChildCategoryService{
         return $childcategory;
     }
 
-    public function update($data=[],$childCategory,$cid)
+    public function update(ChildCategory  $childCategory,$data,$cid): ChildCategory
     {   
         // dd($cid->category_id);
         DB::beginTransaction();
@@ -55,6 +55,16 @@ class ChildCategoryService{
         }
         DB::commit();
         return $childCategory;
+    }
+
+    public function getId($id)
+    {
+        return ChildCategory::query()->find($id);
+    }
+
+    public function destroy(ChildCategory $childCategory)
+    {
+        $childCategory->delete();
     }
 }
 

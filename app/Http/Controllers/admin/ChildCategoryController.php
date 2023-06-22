@@ -52,7 +52,7 @@ class ChildCategoryController extends Controller
     public function store(ChildCategoryRequest $request)
     {     
           $categoryId= SubCategory::where('id',$request->subcategory_id)->select('category_id')->first();
-          $this->childcategoryservice->store($request->except('_token', '_method'),$categoryId);
+          $this->childcategoryservice->store($request->all(),$categoryId);
           return back()->with(['info'=>'Child category added successfully done!']);
  
     }
@@ -63,18 +63,22 @@ class ChildCategoryController extends Controller
         return view('admin.childcategory.edit',compact('categories','data'));
     }
     public function update(ChildCategoryRequest $request)
-    {    
-         $childCategory = ChildCategory::query()->where('id',$request->id)->first();
-        //  dd($childCategory->toArray());
+    {   
+         $childCategory = $this->childcategoryservice->getId($request->id); 
          $cid = SubCategory::query()->where('id',$request->subcategory_id)->select('category_id')->first();
-         $this->childcategoryservice->update($request->except('_token', '_method'),$childCategory,$cid);
+         $this->childcategoryservice->update($childCategory,$request->all(),$cid);
         return back()->with(['info'=>'This item update successfully done!']);
 
     } 
     public function destroy($id)
-    {
-        $childCategory = ChildCategory::query()->findOrFail($id)->delete();
-        return back()->with(['info'=>'This item deleted successfully done!']);
-
+    {   
+        $childCategory = $this->childcategoryservice->getId($id);
+        if(!$childCategory)
+        {
+            return back()->with(['info'=>'this item not available']);
+        }else{
+            $this->childcategoryservice->destroy($childCategory);
+            return back()->with(['info'=>'This item deleted successfully done!']);
+        }
     }
 }

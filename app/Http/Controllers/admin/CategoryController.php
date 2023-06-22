@@ -21,9 +21,9 @@ class CategoryController extends Controller
         $categories = $this->categoryservice->getAllCategory();
         return view('admin.category.list',compact('categories'));
     }
-    public function store(CategoryRequest $request,Category $category)
+    public function store(CategoryRequest $request)
     {
-        $categories = $this->categoryservice->store($request->except('_token', '_method'));
+        $categories = $this->categoryservice->store($request->all());
         return back()->with(['info'=>'Category added successfully done!']);
 
     }
@@ -33,17 +33,25 @@ class CategoryController extends Controller
         $data = Category::query()->where('id',$id)->first();
         return response()->json($data);
     }
+
+
     public function update(CategoryRequest $request)
     {
-        $category= Category::query()->find($request->id);
-        $this->categoryservice->update($request->except('_token', '_method'),$category);
+        $category = $this->categoryservice->getId($request->id); 
+        $this->categoryservice->update($category,$request->all());
         return back()->with(['info'=>'Category update successfully done!']);
 
     }
 
     public function destroy($id)
-    {
-        Category::query()->findOrFail($id)->delete();
+    {   
+           $category = $this->categoryservice->getId($id);
+           if(!$category){
+               return back()->with(['info'=>'this item not available']);
+           }else{
+            $this->categoryservice->destroy($category);
+           }
+
         return back()->with(['info'=>'this item has been deleted']);
 
 

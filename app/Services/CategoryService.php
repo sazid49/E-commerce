@@ -49,21 +49,17 @@ class CategoryService {
         return $category;
     }
 
-    public function update($data=[],$category)
+    public function update(Category $category,$data): Category
     {
         $cimage="";
-//        dd($category);
         DB::beginTransaction();
         try {
-//            $category = Category::query()->findOrFail($id);
             $images = Slim::getImages();
-            // dd($images);
             if ($images) {
                 $image = array_shift($images);
                 $Imagename = Str::slug(now()) . '.' . pathinfo($image['output']['name'], PATHINFO_EXTENSION);
                 $cdata = $image['output']['data'];
                 $output = Slim::saveFile($cdata, $Imagename, '../storage/app/public/uploads/category', false);
-                // $pathNFile = $name;
                 $data['image'] = $Imagename;
                 $category->update([
                     'name'=>$data['name'] ?? '',
@@ -83,6 +79,17 @@ class CategoryService {
         }
         DB::commit();
         return $category;
+    }
+
+    public function destroy(Category $category): bool
+    {
+        // Delete the post
+        return $category->delete();
+    }
+
+    public function getId($id)
+    {
+        return Category::query()->find($id);
     }
 }
 
