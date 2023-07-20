@@ -4,6 +4,7 @@
         <div class="form-group">
             <label for="">Brand Name :<i class="text-danger text-bold">*</i></label>
             <input type="text" name="name" class="form-control" value="{{ $brand->name }}" placeholder="Name">
+            <input type="hiden" name="id" class="form-control" value="{{ $brand->id }}" placeholder="Name">
         </div>
         <div class="form-group">
             <label for="">Brand Logo :</label>

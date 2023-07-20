@@ -16,7 +16,7 @@ class BrandService{
       $slug =Str::slug($data['name']); 
       $data['slug'] = $slug;
       $logoname = $slug.".".$logo->getClientOriginalExtension();
-      Image::make($logo)->resize(240,120)->save('images/brands/'.$logoname);
+      Image::make($logo)->resize(340,220)->save('images/brands/'.$logoname);
       $data['logo'] = 'public/images/brands/'.$logoname;
       // dd($data);
      DB::beginTransaction();
@@ -34,6 +34,23 @@ class BrandService{
             dd($e->getMessage());
             throw new GeneralException(__('There was a problem creating the subcategory.'));
         }
+        DB::commit();
+        return $brand;
+  }
+
+  public function update(Brand $brand,$data)
+  { 
+    DB::beginTransaction();
+    try {
+      $brand =  $brand->update([
+      'name'=>$data['name'] ?? '',
+      'slug'=>Str::slug($data['name']) ?? '',
+      ]);
+    }catch (Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            throw new GeneralException(__('There was a problem creating the company.'));
+    }
         DB::commit();
         return $brand;
   }

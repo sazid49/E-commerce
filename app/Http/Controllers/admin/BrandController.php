@@ -49,14 +49,17 @@ class BrandController extends Controller
     
     public function edit($id)
     {
-        $brand = Brand::query()->find($id);
+        $brand = $this->brandservice->getID($id);
         return view('admin.brand.edit',compact('brand'));
 
     }
     
-    public function update()
-    {
-        
+    public function update(BrandRequest $request) 
+    {   
+        $brand = $this->brandservice->getID($request->id);
+        $this->brandservice->update($brand,$request->all());
+        return back()->with(['info'=>'this item update success!']);
+
     }
     
     public function destroy($id)

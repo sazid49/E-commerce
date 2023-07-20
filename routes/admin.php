@@ -23,6 +23,8 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
         ->group(function () {
             Route::get('dashboard', 'index')->name('dashboard');
             Route::get('logout', 'adminLogOut')->name('logout');
+            Route::get('pasword/change', 'adminPasswordChange')->name('password.change');
+            Route::post('pasword/update', 'adminPasswordUpdate')->name('password.update');
         });
         Route::controller(CategoryController::class)
                     ->prefix('category')

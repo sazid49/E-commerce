@@ -23,7 +23,8 @@
             <div class="navbar-search-block">
                 <form class="form-inline">
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                            aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
@@ -124,9 +125,12 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <img src="{{ asset('backend/dist/img/user2-160x160.jpg')}}" class="rounded-circle" height="20px" width="20px">
+                <img src="{{ asset('backend/dist/img/user2-160x160.jpg') }}" class="rounded-circle" height="20px"
+                    width="20px">
             </a>
-            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+            <div class="dropdown-menu  dropdown-menu-right">
+                <a class="dropdown-item" href="{{ route('admin.password.change') }}">Password
+                    Change</a>
                 <a class="dropdown-item" id="logout" href="{{ route('admin.logout') }}">Logout</a>
             </div>
         </li>

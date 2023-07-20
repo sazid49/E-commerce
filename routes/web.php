@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserLoginController;
-
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +26,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/login',[UserLoginController::class,'userLogin'])->name('login')->middleware('guest');
+
+Route::get('user/{user}',function(User $user){
+       return $user;
+});
 

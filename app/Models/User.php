@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'is_admin',
+        'created_at',
     ];
 
     /**
@@ -44,4 +45,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $appends = ['humanCreatedAt'];
+
+    public function getHumanCreatedAtAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
+
+
 }
