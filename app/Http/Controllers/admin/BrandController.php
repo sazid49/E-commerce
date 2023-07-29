@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use DataTables;
-use App\Models\Brand;
+use App\Models\backend\Brand;
 use Illuminate\Http\Request;
 use App\Services\BrandService;
 use Illuminate\Support\Facades\DB;

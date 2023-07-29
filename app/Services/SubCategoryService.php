@@ -3,7 +3,7 @@
 namespace App\Services;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Category,SubCategory};
+use App\Models\backend\{Category,SubCategory};
 
 
 class SubCategoryService{

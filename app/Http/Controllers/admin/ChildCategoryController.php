@@ -9,8 +9,8 @@ use App\Models\ChildCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChildCategoryRequest;
-use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\backend\Category;
+use App\Models\backend\SubCategory;
 use App\Services\ChildCategoryService;
 
 class ChildCategoryController extends Controller

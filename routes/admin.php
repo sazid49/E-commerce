@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\Category;
+use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\AdminLoginController;
 /*
@@ -65,6 +66,14 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::get('delete/{id}', 'destroy')->name('destroy');
            Route::get('edit/{id}', 'edit')->name('edit');
            Route::post('update', 'update')->name('update');
+        });
+
+        Route::controller(SettingController::class)
+        ->prefix('setting')
+        ->as('setting.')
+        ->group(function () {
+           Route::get('seo', 'seoSetting')->name('seo');
+           Route::post('seo/update', 'seoSettingUpdate')->name('seo.update');
         });
 
 });

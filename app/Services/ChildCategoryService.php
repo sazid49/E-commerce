@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Str;
-use App\Models\ChildCategory;
+use App\Models\backend\ChildCategory;
 use Illuminate\Support\Facades\DB;
 
 

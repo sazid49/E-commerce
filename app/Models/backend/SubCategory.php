@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\backend;
+
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ChildCategory extends Model
+class SubCategory extends Model
 {
     use HasFactory;
     protected $guarded=[];
@@ -14,8 +15,9 @@ class ChildCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public  function subcategory()
+
+    public function ChildCategory()
     {
-        return $this->belongsTo(SubCategory::class);
+      return  $this->hasMany(ChildCategory::class);
     }
 }

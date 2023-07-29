@@ -4,8 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoryRequest;
-use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\backend\Category;
+use App\Models\backend\SubCategory;
 use  App\Services\SubCategoryService;
 
 class SubCategoryController extends Controller

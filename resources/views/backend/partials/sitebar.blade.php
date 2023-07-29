@@ -88,6 +88,48 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview  {{ isActive(['admin/setting/seo']) }}">
+                    <a href="#" class="nav-link {{ isActive(['admin/setting/seo']) }}">
+                        <i class="fas fa-cog"></i>
+                        <p>
+                            Settings
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.setting.seo') }}"
+                                class="nav-link {{ isActive('admin/setting/seo') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>SEO Settings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.sub.category.list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Website Settings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.child.category.list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Page Management</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.brand.list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>SMTP Settings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.brand.list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Payment Gateway</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>

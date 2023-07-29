@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 use DataTables;
-use App\Models\Brand;
+use App\Models\backend\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

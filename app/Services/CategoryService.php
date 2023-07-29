@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Slim\Slim;
-use App\Models\Category;
+use App\Models\backend\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
