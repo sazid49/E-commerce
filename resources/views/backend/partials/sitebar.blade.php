@@ -88,8 +88,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview  {{ isActive(['admin/setting/seo']) }}">
-                    <a href="#" class="nav-link {{ isActive(['admin/setting/seo']) }}">
+                <li class="nav-item has-treeview  {{ isActive(['admin/setting/seo', 'admin/setting/smtp']) }}">
+                    <a href="#" class="nav-link {{ isActive(['admin/setting/seo', 'admin/setting/smtp']) }}">
                         <i class="fas fa-cog"></i>
                         <p>
                             Settings
@@ -117,7 +117,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.brand.list') }}" class="nav-link">
+                            <a href="{{ route('admin.setting.smtp') }}"
+                                class="nav-link {{ isActive('admin/setting/smtp') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>SMTP Settings</p>
                             </a>

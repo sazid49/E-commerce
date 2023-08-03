@@ -74,6 +74,8 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
         ->group(function () {
            Route::get('seo', 'seoSetting')->name('seo');
            Route::post('seo/update', 'seoSettingUpdate')->name('seo.update');
+           Route::get('smtp', 'smtpSetting')->name('smtp');
+           Route::post('smtp/update', 'smtpUpdate')->name('smtp.update');
         });
 
 });
