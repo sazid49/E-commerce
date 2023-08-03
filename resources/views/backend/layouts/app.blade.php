@@ -24,7 +24,7 @@
         href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('backend/plugins/slim-cropping-plugin/example/css/slim.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.css">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -102,8 +102,21 @@
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="{{ asset('backend/plugins/slim-cropping-plugin/example/js/slim.kickstart.min.js') }}"></script>
 
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
+    </script>
     <script>
         $(document).on("click", "#delete", function(e) {
             e.preventDefault();

@@ -65,15 +65,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    {{-- <tfoot>
-                                        <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
-                                        </tr>
-                                    </tfoot> --}}
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -114,14 +105,6 @@
                             <label for="">Name :<i class="text-danger text-bold">*</i></label>
                             <input type="text" name="name" class="form-control" placeholder="Name">
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="">Slug :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="slug" class="form-control" placeholder="slug">
-                        </div> --}}
-                        {{-- <div class="form-group slim" data-ratio="2:1" data-size="75,75" data-max-file-size="3">
-                            <label for="">Image :</label>
-                            <input type="file" name="slim[]" class="form-control" placeholder="slug">
-                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

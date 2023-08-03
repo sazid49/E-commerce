@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\Category;
+use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\AdminLoginController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +79,18 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::post('seo/update', 'seoSettingUpdate')->name('seo.update');
            Route::get('smtp', 'smtpSetting')->name('smtp');
            Route::post('smtp/update', 'smtpUpdate')->name('smtp.update');
+        });
+
+        Route::controller(PageController::class)
+        ->prefix('page')
+        ->as('page.')
+        ->group(function () {
+           Route::get('/', 'index')->name('index');
+           Route::post('store', 'store')->name('store');
+           Route::get('edit/{id}', 'edit')->name('edit');
+           Route::post('update/{id}', 'update')->name('update');
+           Route::get('delete/{id}', 'destroy')->name('destroy');
+
         });
 
 });
