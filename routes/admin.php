@@ -93,5 +93,14 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
 
         });
 
+
+         Route::controller(SettingController::class)
+        ->prefix('website')
+        ->as('website.')
+        ->group(function () {
+           Route::get('/settings', 'websiteSetting')->name('settings');
+           Route::post('/settings/update', 'websiteSettingUpdate')->name('settings.update');
+        });
+
 });
 

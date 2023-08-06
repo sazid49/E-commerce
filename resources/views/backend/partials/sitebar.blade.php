@@ -89,9 +89,9 @@
                     </ul>
                 </li>
                 <li
-                    class="nav-item has-treeview  {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*']) }}">
+                    class="nav-item has-treeview  {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*', 'admin/website/settings*']) }}">
                     <a href="#"
-                        class="nav-link {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*']) }}">
+                        class="nav-link {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*', 'admin/website/settings*']) }}">
                         <i class="fas fa-cog"></i>
                         <p>
                             Settings
@@ -107,7 +107,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.sub.category.list') }}" class="nav-link">
+                            <a href="{{ route('admin.website.settings') }}"
+                                class="nav-link {{ isActive('admin/website/settings') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Website Settings</p>
                             </a>
