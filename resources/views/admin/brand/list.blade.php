@@ -82,7 +82,8 @@
                         </div>
                         <div class="form-group">
                             <label for="">Brand Logo :</label>
-                            <input type="file" name="logo" id="dropify" class="form-control" placeholder="Name">
+                            <input type="file" name="logo" id="dropify" class="form-control logo"
+                                placeholder="Name">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -112,11 +113,11 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> --}}
+@endsection
+
+@push('js')
     <script>
         $(document).ready(function() {
             $('.ytable').DataTable({
@@ -142,8 +143,8 @@
                         data: 'logo',
                         name: 'logo',
                         render: function(data, type, full, meta) {
-                            return "<img src=\"" + data +
-                                "\" height=\"40\" class=\"rounded-circle\" />"
+                            return "<img src=\"{{ asset('storage') }}/" + data +
+                                "\" height=\"50\" class=\"rounded-circle\"/>"
                         }
                     },
 
@@ -173,4 +174,4 @@
             }
         });
     </script>
-@endsection
+@endpush

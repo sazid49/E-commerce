@@ -15,9 +15,16 @@ class BrandService{
       $logo = $data['logo'];
       $slug =Str::slug($data['name']); 
       $data['slug'] = $slug;
-      $logoname = $slug.".".$logo->getClientOriginalExtension();
-      Image::make($logo)->resize(340,220)->save('images/brands/'.$logoname);
-      $data['logo'] = 'public/images/brands/'.$logoname;
+      if($data['logo'])
+      {
+        $logo = $data['logo'];
+                    $filename = time() . '.' . $logo->getClientOriginalExtension();
+                    $path = $logo->storeAs('images/brands', $filename, 'public');
+                    $data['logo'] = $path;
+      }
+      // $logoname = $slug.".".$logo->getClientOriginalExtension();
+      // Image::make($logo)->resize(340,220)->save('images/brands/'.$logoname);
+      // $data['logo'] = 'public/images/brands/'.$logoname;
       // dd($data);
      DB::beginTransaction();
         try {
@@ -40,12 +47,20 @@ class BrandService{
 
   public function update(Brand $brand,$data)
   { 
+
     DB::beginTransaction();
     try {
-      $brand =  $brand->update([
-      'name'=>$data['name'] ?? '',
-      'slug'=>Str::slug($data['name']) ?? '',
-      ]);
+
+      if($data['logo'])
+      {
+        $logo = $data['logo'];
+                    $filename = time() . '.' . $logo->getClientOriginalExtension();
+                    $path = $logo->storeAs('images/brands', $filename, 'public');
+                    $data['logo'] = $path;
+      }
+      $data['slug']=Str::slug($data['name']) ?? '';
+      $brand =  $brand->update($data);
+
     }catch (Exception $e) {
             DB::rollBack();
             dd($e->getMessage());

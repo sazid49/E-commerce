@@ -89,9 +89,9 @@
                     </ul>
                 </li>
                 <li
-                    class="nav-item has-treeview  {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*', 'admin/website/settings*']) }}">
+                    class="nav-item has-treeview  {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*', 'admin/website/settings*', 'admin/warehouse*']) }}">
                     <a href="#"
-                        class="nav-link {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*', 'admin/website/settings*']) }}">
+                        class="nav-link {{ isActive(['admin/setting/seo', 'admin/setting/smtp', 'admin/page', 'admin/page/edit*', 'admin/website/settings*', 'admin/warehouse*']) }}">
                         <i class="fas fa-cog"></i>
                         <p>
                             Settings
@@ -99,6 +99,13 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.warehouse.index') }}"
+                                class="nav-link {{ isActive('admin/warehouse') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Warehouse</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.setting.seo') }}"
                                 class="nav-link {{ isActive('admin/setting/seo') }}">
