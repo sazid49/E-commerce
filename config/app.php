@@ -162,6 +162,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -187,6 +188,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
     ])->toArray(),
 
 ];

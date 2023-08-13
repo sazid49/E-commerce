@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Category Page</h1>
+                        <h1 class="m-0">Coupon Page</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -27,9 +27,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Warehouse List</h3>
+                                <h3 class="card-title">Coupon List</h3>
                                 <button class="btn btn-sm btn-primary float-right" data-toggle="modal"
-                                    data-target="#childcategory">Add</button>
+                                    data-target="#childcategory">New</button>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -37,9 +37,11 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>Address</th>
+                                            <th>Code</th>
+                                            <th>Date</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -58,6 +60,10 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
+                            <form id="delete_form" action="" method="delete">
+                                @csrf
+                                @method('delete')
+                            </form>
                         </div>
                         <!-- /.card -->
                     </div>
@@ -74,28 +80,41 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6>Warehouse Create Form</h6>
+                    <h6>Coupon Form</h6>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.warehouse.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.coupon.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="">Name :<i class="text-danger text-bold">*</i></label>
-                                <input type="text" name="name" class="form-control" id="scategory_name"
-                                    placeholder="Name">
+                                <label for="">Code :<i class="text-danger text-bold">*</i></label>
+                                <input type="text" name="code" class="form-control" id="code" placeholder="Code">
                             </div>
                             <div class="form-group">
-                                <label for="">Phone :<i class="text-danger text-bold">*</i></label>
-                                <input type="text" name="phone" class="form-control" id="scategory_name"
-                                    placeholder="Name">
+                                <label for="">Date :<i class="text-danger text-bold">*</i></label>
+                                <input type="date" name="date" class="form-control" id="date" placeholder="">
                             </div>
                             <div class="form-group">
-                                <label for="">Address :<i class="text-danger text-bold">*</i>
+                                <label for="">Type :<i class="text-danger text-bold">*</i>
                                 </label>
-                                <input type="text" name="address" class="form-control" id="scategory_name"
-                                    placeholder="Name">
+                                <select name="type" class="form-control" id="type">
+                                    <option value="1">Fixed</option>
+                                    <option value="2">Percentage</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Amount :<i class="text-danger text-bold">*</i>
+                                </label>
+                                <input type="text" name="amount" class="form-control" id="amount" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Status :<i class="text-danger text-bold">*</i>
+                                </label>
+                                <select name="status" class="form-control" id="status">
+                                    <option value="1">Active</option>
+                                    <option value="2">Deactive</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -114,7 +133,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Warehouse Edit Form</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Coupon Edit Form</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -130,28 +149,36 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            $('.ytable').DataTable({
+            table = $('.ytable').DataTable({
                 processing: true,
                 serverSide: true,
                 order: [
                     [0, "desc"]
                 ],
-                ajax: "{{ route('admin.warehouse.index') }}",
+                ajax: "{{ route('admin.coupon.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'code',
+                        name: 'code'
                     },
                     {
-                        data: 'phone',
-                        name: 'Phone'
+                        data: 'date',
+                        name: 'date'
                     },
                     {
-                        data: 'address',
-                        name: 'Address'
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        data: 'amount',
+                        name: 'amount'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'action',
@@ -163,10 +190,47 @@
         });
 
         $('body').on('click', '.edit', function() {
-            var warehouse_id = $(this).data('id');
-            $.get("warehouse/edit/" + warehouse_id, function(data) {
+            var coupon_id = $(this).data('id');
+            $.get("coupon/edit/" + warehouse_id, function(data) {
                 console.log(data);
                 $('#model_body').html(data);
+            });
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '#delete_coupon', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#delete_form').attr("action", url);
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $('#delete_form').submit();
+                    } else {
+                        swal("Safe Data!");
+                    }
+                });
+            });
+            $(document).on('submit', '#delete_form', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var request = $(this).serialize();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    async: false,
+                    data: request,
+                    success: function(data) {
+                        toastr.success(data);
+                        $("#delete_form")[0].reset();
+                        table.ajax.reload();
+                    }
+                });
             });
         });
     </script>

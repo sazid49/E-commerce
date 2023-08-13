@@ -39,7 +39,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryservice->getId($request->id); 
         $this->categoryservice->update($category,$request->all());
-        return back()->with(['info'=>'Category update successfully done!']);
+        return back()->with(['message'=>'Category update successfully done!']);
 
     }
 

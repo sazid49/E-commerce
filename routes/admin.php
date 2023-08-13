@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\Category;
+use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\admin\SettingController;
@@ -110,6 +111,16 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::get('/edit/{id}', 'edit')->name('edit');
            Route::get('/delete/{id}', 'destroy')->name('destroy');
            Route::patch('/update', 'update')->name('update');
+        });
+        Route::controller(CouponController::class)
+        ->prefix('coupon')
+        ->as('coupon.')
+        ->group(function () {
+           Route::get('/', 'index')->name('index');
+           Route::patch('/store', 'store')->name('store');
+           Route::get('/edit/{id}', 'edit')->name('edit');
+           Route::patch('/update', 'update')->name('update');
+           Route::delete('/delete/{id}', 'destroy')->name('destroy');
         });
 
 });

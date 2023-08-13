@@ -142,6 +142,33 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview  {{ isActive(['admin/coupon']) }}">
+                    <a href="#" class="nav-link {{ isActive(['admin/coupon']) }}">
+                        <i class="fab fa-buffer"></i>
+                        <p>
+                            Offer
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.coupon.index') }}"
+                                class="nav-link {{ isActive('admin/coupon') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Coupon</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>E Campaign</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
