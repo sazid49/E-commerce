@@ -29,7 +29,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Coupon List</h3>
                                 <button class="btn btn-sm btn-primary float-right" data-toggle="modal"
-                                    data-target="#childcategory">New</button>
+                                    data-target="#coupon_add">New</button>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -75,7 +75,7 @@
         </section>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="childcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="coupon_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -83,7 +83,8 @@
                     <h6>Coupon Form</h6>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.coupon.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.coupon.store') }}" method="post" enctype="multipart/form-data"
+                        id="coupon_form">
                         @csrf
                         @method('patch')
                         <div class="modal-body">
@@ -99,26 +100,29 @@
                                 <label for="">Type :<i class="text-danger text-bold">*</i>
                                 </label>
                                 <select name="type" class="form-control" id="type">
-                                    <option value="1">Fixed</option>
-                                    <option value="2">Percentage</option>
+                                    <option>---Select Type---</option>
+                                    <option value="Fixed">Fixed</option>
+                                    <option value="Percentage">Percentage</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="">Amount :<i class="text-danger text-bold">*</i>
                                 </label>
-                                <input type="text" name="amount" class="form-control" id="amount" placeholder="Name">
+                                <input type="text" name="amount" class="form-control" id="amount"
+                                    placeholder="Amount">
                             </div>
                             <div class="form-group">
                                 <label for="">Status :<i class="text-danger text-bold">*</i>
                                 </label>
                                 <select name="status" class="form-control" id="status">
-                                    <option value="1">Active</option>
-                                    <option value="2">Deactive</option>
+                                    <option>---Select Status---</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary modal_close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
@@ -191,13 +195,15 @@
 
         $('body').on('click', '.edit', function() {
             var coupon_id = $(this).data('id');
-            $.get("coupon/edit/" + warehouse_id, function(data) {
+            $.get("coupon/edit/" + coupon_id, function(data) {
                 console.log(data);
                 $('#model_body').html(data);
             });
         });
 
         $(document).ready(function() {
+
+            //delete
             $(document).on('click', '#delete_coupon', function(e) {
                 e.preventDefault();
                 var url = $(this).attr('href');
@@ -228,6 +234,42 @@
                     success: function(data) {
                         toastr.success(data);
                         $("#delete_form")[0].reset();
+                        table.ajax.reload();
+                    }
+                });
+            });
+
+            //store coupon
+            $(document).on('submit', '#coupon_form', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var request = $(this).serialize();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    async: false,
+                    data: request,
+                    success: function(data) {
+                        toastr.success(data);
+                        $("#coupon_form")[0].reset();
+                        $("#coupon_add").modal('hide');
+                        table.ajax.reload();
+                    }
+                });
+            });
+            $(document).on('submit', '#coupon_edit_form', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var request = $(this).serialize();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    async: false,
+                    data: request,
+                    success: function(data) {
+                        toastr.success(data);
+                        $("#coupon_edit_form")[0].reset();
+                        $("#EditModal").modal('hide');
                         table.ajax.reload();
                     }
                 });

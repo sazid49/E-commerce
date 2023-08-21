@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->nullable();
             $table->date('date')->nullable();
-            $table->integer('type')->nullable();
+            $table->string('type')->nullable();
             $table->decimal('amount')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

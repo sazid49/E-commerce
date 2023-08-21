@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\backend\Coupon;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
 
 class CouponController extends Controller
 {
@@ -40,20 +41,37 @@ class CouponController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        // 
+        $data = $request->all();
+        Coupon::query()->create($data);
+       return response()->json("Coupon Store Success");
+
+
     }
 
     public function edit($id)
-    {
-
+    {    
+         $coupon = Coupon::query()->findOrFail($id);
+         return view('admin.settings.offer.couponEdit',compact('coupon'));
     }
     public function update(Request $request)
     {
-
+        $coupon = Coupon::query()->findOrFail($request->id);
+        $data = [
+           'code'=>$request->code,
+           'date'=>$request->date,
+           'type'=>$request->type,
+           'amount'=>$request->amount,
+           'status'=>$request->status,
+        ];
+        $coupon->update($data);
+       return response()->json("Coupon update Success");
     }
     public function destroy($id)
     {
        $coupon = Coupon::query()->findOrFail($id)->delete();
        return response()->json("Coupon Delete Success");
     }
+
 }
