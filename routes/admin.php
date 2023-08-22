@@ -122,6 +122,16 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::patch('/update', 'update')->name('update');
            Route::delete('/delete/{id}', 'destroy')->name('destroy');
         });
+        Route::controller(PickupPointController::class)
+        ->prefix('pickuppoint')
+        ->as('pickuppoint.')
+        ->group(function () {
+           Route::get('/', 'index')->name('index');
+           Route::post('/store', 'store')->name('store');
+           Route::get('/edit/{id}', 'edit')->name('edit');
+           Route::post('/update', 'update')->name('update');
+           Route::delete('/delete/{id}', 'destroy')->name('destroy');
+        });
 
 });
 
