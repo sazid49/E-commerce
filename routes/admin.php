@@ -132,6 +132,17 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::post('/update', 'update')->name('update');
            Route::delete('/delete/{id}', 'destroy')->name('destroy');
         });
+        Route::controller(ProductController::class)
+        ->prefix('product')
+        ->as('product.')
+        ->group(function () {
+           Route::get('/', 'index')->name('index');
+           Route::get('/create', 'create')->name('create');
+           Route::post('/store', 'store')->name('store');
+           Route::get('/edit/{id}', 'edit')->name('edit');
+           Route::post('/update', 'update')->name('update');
+           Route::delete('/delete/{id}', 'destroy')->name('destroy');
+        });
 
 });
 

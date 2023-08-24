@@ -4,14 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use DataTables;
 use Illuminate\Http\Request;
-// use Yajra\DataTables\DataTables;
-use App\Models\ChildCategory;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ChildCategoryRequest;
 use App\Models\backend\Category;
+use Illuminate\Support\Facades\DB;
 use App\Models\backend\SubCategory;
+use App\Http\Controllers\Controller;
+use App\Models\backend\ChildCategory;
 use App\Services\ChildCategoryService;
+use App\Http\Requests\ChildCategoryRequest;
 
 class ChildCategoryController extends Controller
 {   

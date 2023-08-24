@@ -120,9 +120,9 @@
             </div>
         </div>
     </div>
+@endsection
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+@push('js')
     <script>
         $(document).ready(function() {
             table = $('.ytable').DataTable({
@@ -160,7 +160,8 @@
                 ]
             });
         });
-
+    </script>
+    <script>
         $('#pickuppoint_add_form').submit(function(e) {
             e.preventDefault();
             let url = $(this).attr('action');
@@ -214,8 +215,6 @@
                     }
                 });
             });
-
-
             $('body').on('click', '.edit', function() {
                 var pickuppoint_id = $(this).data('id');
                 $.get("pickuppoint/edit/" + pickuppoint_id, function(data) {
@@ -244,4 +243,4 @@
 
         });
     </script>
-@endsection
+@endpush

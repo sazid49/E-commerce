@@ -139,8 +139,7 @@
                             <label for="">Name :<i class="text-danger text-bold">*</i></label>
                             <input type="text" name="name" class="form-control" id="category_name"
                                 placeholder="Name">
-                            <input type="hidden" name="id" class="form-control" id="id"
-                                placeholder="id">
+                            <input type="hidden" name="id" class="form-control" id="id" placeholder="id">
                         </div>
                         {{-- <div class="form-group">
                             <label for="">Slug :<i class="text-danger text-bold">*</i></label>
@@ -163,9 +162,8 @@
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+@endsection
+@push('js')
     <script>
         $('body').on('click', '.edit', function() {
             var cat_id = $(this).data('id');
@@ -178,4 +176,4 @@
             });
         });
     </script>
-@endsection
+@endpush

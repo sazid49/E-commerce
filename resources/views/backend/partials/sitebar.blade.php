@@ -149,6 +149,24 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview {{ isActive('admin/product*') }}">
+                    <a href="#" class="nav-link {{ isActive('admin/product*') }}">
+                        <i class="fab fa-buffer"></i>
+                        <p>
+                            Products
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.product.index') }}"
+                                class="nav-link {{ isActive('admin/product*') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Product List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item has-treeview  {{ isActive(['admin/coupon']) }}">
                     <a href="#" class="nav-link {{ isActive(['admin/coupon']) }}">
                         <i class="fab fa-buffer"></i>
@@ -174,8 +192,23 @@
 
                     </ul>
                 </li>
-
-
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fab fa-buffer"></i>
+                        <p>
+                            Demo
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Demo Sub</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
