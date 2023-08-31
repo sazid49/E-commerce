@@ -101,15 +101,10 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="">Name :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="name" class="form-control" placeholder="Name">
-                        </div>
+                        <x-forms.input title="Name" type="text" name="name" placeholder="Enter SubCategory Name"
+                            value="" id="" />
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
+                    <x-forms.button button="Create" />
                 </form>
             </div>
         </div>

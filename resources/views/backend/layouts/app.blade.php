@@ -105,9 +105,7 @@
     <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="{{ asset('backend/plugins/slim-cropping-plugin/example/js/slim.kickstart.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
         $(function() {
             // Summernote

@@ -21,15 +21,10 @@
                 @endforeach
             </select>
         </div>
-        <div class="form-group">
-            <label for="">Name :<i class="text-danger text-bold">*</i></label>
-            <input type="text" name="name" value="{{ $data->name }}" class="form-control" id="scategory_name"
-                placeholder="Name">
-            <input type="hidden" value="{{ $data->id }}" name="id" class="form-control">
-        </div>
+        <x-forms.input title="Child Category Name" type="text" name="name" placeholder="Enter Child Category Name"
+            id="" value="{{ $data->name }}" />
+        <input type="hidden" value="{{ $data->id }}" name="id" class="form-control">
+
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Update</button>
-    </div>
+    <x-forms.button button="Update" />
 </form>

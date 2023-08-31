@@ -99,23 +99,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <x-forms.input :title="'Name'" :type="'text'" :name="'name'" :placeholder="'Name'"
+                            value="" id="" />
                         <div class="form-group">
-                            <label for="">Name :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="name" class="form-control" placeholder="Name">
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="">Slug :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="slug" class="form-control" placeholder="slug">
-                        </div> --}}
-                        <div class="form-group slim" data-ratio="2:1" data-size="75,75" data-max-file-size="3">
                             <label for="">Image :</label>
-                            <input type="file" name="slim[]" class="form-control" placeholder="slug">
+                            <div class="slim" data-ratio="2:1" data-size="75,75" data-max-file-size="3">
+                                <input type="file" name="slim[]" class="form-control" placeholder="slug">
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
+                    <x-forms.button button="Create" />
                 </form>
             </div>
         </div>
@@ -135,29 +128,25 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <x-forms.input :title="'Name'" :type="'text'" :name="'name'" :placeholder="'Name'"
+                            value="" :id="'category_name'" />
+                        <input type="hidden" name="id" class="form-control" id="id" placeholder="id">
+
                         <div class="form-group">
-                            <label for="">Name :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="name" class="form-control" id="category_name"
-                                placeholder="Name">
-                            <input type="hidden" name="id" class="form-control" id="id" placeholder="id">
+                            <label for="">New Image :</label>
+                            <div class="slim" data-ratio="2:1" data-instant-edit="true">
+                                <input type="file" name="slim[]" class="form-control">
+                            </div>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="">Slug :<i class="text-danger text-bold">*</i></label>
-                            <input type="text" name="slug" class="form-control" placeholder="slug">
-                        </div> --}}
-                        <div class="form-group slim" data-ratio="2:1" data-instant-edit="true">
-                            <label for="">Image :</label>
-                            <input type="file" name="slim[]" class="form-control">
-                        </div>
-                        <div class="form-group mt-1">
+
+                        <div class="form-group">
                             <label for="">Old Image :</label>
-                            <img id="image" src="" alt="Image" width="300px">
+                            <div>
+                                <img id="image" src="" alt="Image" width="300px">
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
+                    <x-forms.button button="Update" />
                 </form>
             </div>
         </div>

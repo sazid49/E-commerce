@@ -30,10 +30,10 @@
                                 <h3 class="card-title">Website Settings Page</h3>
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                <form action="{{ route('admin.website.settings.update') }}" method="post"
-                                    enctype="multipart/form-data">
-                                    @csrf
+                            <form action="{{ route('admin.website.settings.update') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="card-body">
                                     <div class="form-row">
                                         <div class="col-4">
                                             <div class="form-group">
@@ -55,97 +55,57 @@
                                             </div>
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Phone One :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="phone_one" class="form-control"
-                                                    placeholder="Enter Your Phone Number"
-                                                    value="{{ $settings->phone_one ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Phone One" type="text" name="phone_one"
+                                                placeholder="Enter Your Phone Number" id=""
+                                                value="{{ $settings->phone_one ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Phone Two :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="phone_two" class="form-control"
-                                                    placeholder="Enter Your Phone Number"
-                                                    value="{{ $settings->phone_two ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Phone Two" type="text" name="phone_two"
+                                                placeholder="Enter Your Phone Number" id=""
+                                                value="{{ $settings->phone_two ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Main Email :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="email" name="main_email" class="form-control"
-                                                    placeholder="Enter Your Main Email"
-                                                    value="{{ $settings->main_email ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Main Email" type="email" name="main_email"
+                                                placeholder="Enter Your Main Email" id=""
+                                                value="{{ $settings->main_email ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Support Email :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="email" name="support_email" class="form-control"
-                                                    placeholder="Enter Your Support Email"
-                                                    value="{{ $settings->support_email ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Support Email" type="email" name="support_email"
+                                                placeholder="Enter Your Support Email" id=""
+                                                value="{{ $settings->support_email ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Address :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="address" class="form-control"
-                                                    placeholder="Enter Your Support Email"
-                                                    value="{{ $settings->address ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Address" type="text" name="address"
+                                                placeholder="Enter Your Address" id=""
+                                                value="{{ $settings->address ?? '' }}" />
                                         </div>
                                     </div>
                                     <h6 class="text-danger text-center">Social Media</h6>
                                     <div class="form-row">
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Facebook :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="facebook" class="form-control"
-                                                    placeholder="Enter Your Facebook Link"
-                                                    value="{{ $settings->facebook ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Facebook" type="text" name="facebook"
+                                                placeholder="Enter Your Facebook Link" id=""
+                                                value="{{ $settings->facebook ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Twitter :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="twitter" class="form-control"
-                                                    placeholder="Enter Your Twitter Link"
-                                                    value="{{ $settings->twitter ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Twitter" type="text" name="twitter"
+                                                placeholder="Enter Your Twitter Link" id=""
+                                                value="{{ $settings->twitter ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Instagram :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="instagram" class="form-control"
-                                                    placeholder="Enter Your Instagram Link"
-                                                    value="{{ $settings->instagram ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Instagram" type="text" name="instagram"
+                                                placeholder="Enter Your Instagram Link" id=""
+                                                value="{{ $settings->instagram ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Linkedin :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="linkedin" class="form-control"
-                                                    placeholder="Enter Your linkedin Link"
-                                                    value="{{ $settings->linkedin ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Linkedin" type="text" name="linkedin"
+                                                placeholder="Enter Your Linkedin Link" id=""
+                                                value="{{ $settings->linkedin ?? '' }}" />
                                         </div>
                                         <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="">Youtube :<i
-                                                        class="text-danger text-bold">*</i></label>
-                                                <input type="text" name="youtube" class="form-control"
-                                                    placeholder="Enter Your Youtube Link"
-                                                    value="{{ $settings->youtube ?? '' }}">
-                                            </div>
+                                            <x-forms.input title="Youtube" type="text" name="youtube"
+                                                placeholder="Enter Your Youtube Link" id=""
+                                                value="{{ $settings->youtube ?? '' }}" />
                                         </div>
                                     </div>
 
@@ -188,14 +148,17 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-12 mt-2">
-                                        <div class="form-group text-center">
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.card-body -->
+
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer text-center">
+                                    @if ($settings)
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    @else
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    @endif
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card -->
                     </div>

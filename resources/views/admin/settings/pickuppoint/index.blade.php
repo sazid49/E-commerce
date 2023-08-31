@@ -88,15 +88,15 @@
                         {{-- @method('patch') --}}
                         <div class="modal-body">
                             <x-forms.input :title="'Name'" :type="'text'" :name="'name'" :value="''"
-                                :placeholder="'Name'" />
+                                :placeholder="'Name'" id="" />
                             <x-forms.input :title="'Address'" :type="'text'" :name="'address'" :value="''"
-                                :placeholder="'Address'" />
+                                :placeholder="'Address'" id="" />
                             <x-forms.input :title="'Phone'" :type="'text'" :name="'phone'" :value="''"
-                                :placeholder="'Phone Number'" />
+                                :placeholder="'Phone Number'" id="" />
                             <x-forms.input :title="'Phone Two'" :type="'text'" :name="'phone_two'" :value="''"
-                                :placeholder="'Phone Number'" />
+                                :placeholder="'Phone Number'" id="" />
                         </div>
-                        <x-forms.button />
+                        <x-forms.button button="Create" />
                     </form>
                 </div>
             </div>

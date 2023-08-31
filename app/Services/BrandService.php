@@ -11,30 +11,20 @@ class BrandService{
    
   public function store($data)
   {   
-      
-      $logo = $data['logo'];
-      $slug =Str::slug($data['name']); 
-      $data['slug'] = $slug;
-      if($data['logo'])
-      {
-        $logo = $data['logo'];
-                    $filename = time() . '.' . $logo->getClientOriginalExtension();
-                    $path = $logo->storeAs('images/brands', $filename, 'public');
-                    $data['logo'] = $path;
-      }
-      // $logoname = $slug.".".$logo->getClientOriginalExtension();
-      // Image::make($logo)->resize(340,220)->save('images/brands/'.$logoname);
-      // $data['logo'] = 'public/images/brands/'.$logoname;
-      // dd($data);
      DB::beginTransaction();
         try {
-            // $brand = Brand::query()->create([
-            //       'name'=>$data['name'] ?? '',
-            //       'slug'=>Str::slug($data['name']) ?? '',
-            //       'logo'=>$strlogo ?? '',
-            // ]);
-
-            $brand = DB::table('brands')->insert($data);
+        if(isset($data['logo']))
+        {
+          $logo = $data['logo'];
+          $filename = time() . '.' . $logo->getClientOriginalExtension();
+          $path = $logo->storeAs('images/brands', $filename, 'public');
+          $data['logo'] = $path;
+          $data['slug'] = Str::slug($data['name']);
+          $brand = DB::table('brands')->insert($data);
+        }else{
+          $data['slug']=Str::slug($data['name']) ?? '';
+          $brand = DB::table('brands')->insert($data);
+        }
     
         } catch (Exception $e) {
             DB::rollBack();
@@ -47,24 +37,27 @@ class BrandService{
 
   public function update(Brand $brand,$data)
   { 
-
+    
     DB::beginTransaction();
     try {
 
-      if($data['logo'])
+      if(isset($data['logo']))
       {
         $logo = $data['logo'];
                     $filename = time() . '.' . $logo->getClientOriginalExtension();
                     $path = $logo->storeAs('images/brands', $filename, 'public');
                     $data['logo'] = $path;
+                    $data['slug']=Str::slug($data['name']) ?? '';
+                    $brand =  $brand->update($data);
+      }else{
+                    $data['slug']=Str::slug($data['name']) ?? '';
+                    $brand =  $brand->update($data);
       }
-      $data['slug']=Str::slug($data['name']) ?? '';
-      $brand =  $brand->update($data);
 
     }catch (Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
-            throw new GeneralException(__('There was a problem creating the company.'));
+            throw new GeneralException(__('There was a problem creating the Brand.'));
     }
         DB::commit();
         return $brand;

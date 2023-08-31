@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Category Page</h1>
+                        <h1 class="m-0">Warehouse Page</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -30,9 +30,19 @@
                                 <h3 class="card-title">Warehouse List</h3>
                                 <button class="btn btn-sm btn-primary float-right" data-toggle="modal"
                                     data-target="#childcategory">Add</button>
+
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <table id="" class="table table-bordered table-striped text-center ytable">
                                     <thead>
                                         <tr>
@@ -81,27 +91,14 @@
                         @csrf
                         @method('patch')
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="">Name :<i class="text-danger text-bold">*</i></label>
-                                <input type="text" name="name" class="form-control" id="scategory_name"
-                                    placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Phone :<i class="text-danger text-bold">*</i></label>
-                                <input type="text" name="phone" class="form-control" id="scategory_name"
-                                    placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Address :<i class="text-danger text-bold">*</i>
-                                </label>
-                                <input type="text" name="address" class="form-control" id="scategory_name"
-                                    placeholder="Name">
-                            </div>
+                            <x-forms.input title="Name" type="text" name="name" placeholder="Name"
+                                id="scategory_name" value="" />
+                            <x-forms.input title="Phone" type="text" name="phone" placeholder="Phone"
+                                id="scategory_phone" value="" />
+                            <x-forms.input title="Address" type="text" name="address" placeholder="Address"
+                                id="scategory_address" value="" />
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        </div>
+                        <x-forms.button button="Create" />
                     </form>
                 </div>
             </div>

@@ -38,8 +38,13 @@ class WarehouseController extends Controller
     }
 
     public function store(Request $request)
-    {
-        Warehouse::query()->create($request->all());
+    {   
+        $validated = $request->validate([
+             'name' => 'required',
+             'phone' => 'required',
+             'address' => 'required',
+        ]);
+        Warehouse::query()->create($validated);
         return redirect()->back()->with(['info'=>'Warehouse Create Successfully Done!']);
 
     }
@@ -52,10 +57,14 @@ class WarehouseController extends Controller
     }
 
     public function update(Request $request)
-    {
+    {   
+        $validated = $request->validate([
+             'name' => 'required',
+             'phone' => 'required',
+             'address' => 'required',
+        ]);
         $warehouse = Warehouse::query()->find($request->id);
-        $data = $request->only(['name','phone','address']);
-        $warehouse->update($data);
+        $warehouse->update($validated);
         return redirect()->back()->with(['info'=>'Warehouse Edit Successfully Done!']);
     }
 }
