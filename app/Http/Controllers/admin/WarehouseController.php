@@ -25,7 +25,7 @@ class WarehouseController extends Controller
                              $actionBtn='<a  class="btn btn-info btn-sm edit" data-id="'.$row->id.'" 
                                               data-toggle="modal" data-target="#EditModal"><i class="fas fa-edit"></i></a>
                                                  <a href="'.route('admin.warehouse.destroy',$row->id).'"
-                                                  class="btn btn-danger btn-sm" id="delete">
+                                                  class="btn btn-danger btn-sm" id="delete_warehouse">
                                                   <i class="fas fa-trash-alt"></i></a>';
                              return $actionBtn;
                            })
@@ -66,5 +66,11 @@ class WarehouseController extends Controller
         $warehouse = Warehouse::query()->find($request->id);
         $warehouse->update($validated);
         return redirect()->back()->with(['info'=>'Warehouse Edit Successfully Done!']);
+    }
+
+    public function destroy($id)
+    {
+        $warehouse = Warehouse::query()->findOrFail($id)->delete();
+        return response()->json("Warehouse  Delete Success");
     }
 }
