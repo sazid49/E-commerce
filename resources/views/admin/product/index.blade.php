@@ -38,9 +38,14 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
-                                            <th>Phone Two</th>
+                                            <th>Code</th>
+                                            <th>Category</th>
+                                            <th>Subcategory</th>
+                                            <th>Brand</th>
+                                            <th>Featured</th>
+                                            <th>Today Deal</th>
+                                            <th>Status</th>
+                                            <th>Thumbnail</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -83,7 +88,7 @@
                 order: [
                     [0, "desc"]
                 ],
-                ajax: "{{ route('admin.pickuppoint.index') }}",
+                ajax: "{{ route('admin.product.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -93,21 +98,45 @@
                         name: 'name'
                     },
                     {
-                        data: 'address',
-                        name: 'Address'
+                        data: 'code',
+                        name: 'code'
                     },
                     {
-                        data: 'phone',
-                        name: 'Phone'
+                        data: 'category_name',
+                        name: 'category_name'
                     },
                     {
-                        data: 'phone_two',
-                        name: 'Phone_two'
+                        data: 'subcategory_name',
+                        name: 'subcategory_name'
+                    },
+                    {
+                        data: 'brand_name',
+                        name: 'brand_name'
+                    },
+                    {
+                        data: 'featured',
+                        name: 'featured'
+                    },
+                    {
+                        data: 'today_deal',
+                        name: 'today_deal'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'thumbnail',
+                        name: 'thumbnail',
+                        render: function(data, type, full, meta) {
+                            return "<img src=\"{{ asset('storage/images/product') }}/" + data +
+                                "\" height=\"50\" class=\"rounded-circle\"/>"
+                        }
                     },
                     {
                         data: 'action',
                         name: 'action'
-                    }
+                    },
 
                 ]
             });

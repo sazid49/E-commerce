@@ -160,9 +160,14 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.product.index') }}"
-                                class="nav-link {{ isActive('admin/product*') }}">
+                                class="nav-link {{ isActive('admin/product') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Product List</p>
+                            </a>
+                            <a href="{{ route('admin.product.create') }}"
+                                class="nav-link {{ isActive('admin/product/create') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Product</p>
                             </a>
                         </li>
                     </ul>

@@ -17,8 +17,8 @@ class BrandService{
         {
           $logo = $data['logo'];
           $filename = time() . '.' . $logo->getClientOriginalExtension();
-          $path = $logo->storeAs('images/brands', $filename, 'public');
-          $data['logo'] = $path;
+          $logo->storeAs('public/images/brand/'.$filename);
+          $data['logo'] = $filename;
           $data['slug'] = Str::slug($data['name']);
           $brand = DB::table('brands')->insert($data);
         }else{

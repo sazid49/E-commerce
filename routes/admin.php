@@ -2,12 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\Category;
-use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\BrandController;
+use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SettingController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\WarehouseController;
+use App\Http\Controllers\admin\PickupPointController;
 use App\Http\Controllers\admin\SubCategoryController;
+use App\Http\Controllers\admin\ChildCategoryController;
 
 
 /*
@@ -109,8 +115,8 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::get('/', 'index')->name('index');
            Route::patch('/store', 'store')->name('store');
            Route::get('/edit/{id}', 'edit')->name('edit');
-           Route::get('/delete/{id}', 'destroy')->name('destroy');
            Route::patch('/update', 'update')->name('update');
+           Route::delete('/delete/{id}', 'destroy')->name('destroy');
         });
         Route::controller(CouponController::class)
         ->prefix('coupon')
@@ -145,4 +151,6 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
         });
 
 });
+
+Route::get('/get-child-category/{id}',[ProductController::class,'getChiledCategory']);
 

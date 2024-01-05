@@ -84,13 +84,28 @@
                                                     class="text-danger">*</span> </label>
                                             <select class="form-control" name="subcategory_id" id="subcategory_id">
                                                 <option disabled="" selected="">==choose category==</option>
+                                                @foreach ($categories as $category)
+                                                    @php
+                                                        $subcategories = DB::table('sub_categories')
+                                                            ->where('category_id', $category->id)
+                                                            ->get();
+                                                    @endphp
+                                                    <option style="color:red;" disabled="">{{ $category->name }}
+                                                    </option>
+                                                    @foreach ($subcategories as $subcategory)
+                                                        <option value="{{ $subcategory->id }}">
+                                                            ---{{ $subcategory->name }}---
+                                                        </option>
+                                                    @endforeach
+                                                @endforeach
+
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Child category<span
                                                     class="text-danger">*</span> </label>
                                             <select class="form-control" name="childcategory_id" id="childcategory_id">
-
+                                                <option value="">Select Child Category</option>
                                             </select>
                                         </div>
                                     </div>
@@ -99,13 +114,20 @@
                                             <label for="exampleInputEmail1">Brand <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" name="brand_id">
-                                                <option value="">Fuma</option>
+                                                <option value="">===Select Brand ===</option>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Pickup Point</label>
                                             <select class="form-control" name="pickup_point_id">
-                                                <option value="">Bazar</option>
+                                                <option value="">===Select Pickup Point===</option>
+                                                @foreach ($pickupPoints as $pickupPoint)
+                                                    <option value="{{ $pickupPoint->id }}">{{ $pickupPoint->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -130,8 +152,8 @@
                                         <div class="form-group col-lg-4">
                                             <label for="exampleInput">Selling Price <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="selling_price" value="{{ old('selling_price') }}"
-                                                class="form-control" required="">
+                                            <input type="text" name="selling_price"
+                                                value="{{ old('selling_price') }}" class="form-control" required="">
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="exampleInput">Discount Price </label>
@@ -143,14 +165,16 @@
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputEmail1">Warehouse <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" name="warehouse">
-                                                <option value="">Hello</option>
+                                            <select class="form-control" name="warehouse_id">
+                                                @foreach ($warehousees as $warehouse)
+                                                    <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="exampleInputPassword1">Stock</label>
-                                            <input type="text" name="stock_quantity"
-                                                value="{{ old('stock_quantity') }}" class="form-control">
+                                            <input type="text" name="quantity" value="{{ old('quantity') }}"
+                                                class="form-control">
                                         </div>
                                     </div>
 
@@ -170,7 +194,7 @@
                                     <div class="row">
                                         <div class="form-group col-lg-12">
                                             <label for="exampleInputPassword1">Product Details</label>
-                                            <textarea class="form-control textarea" name="description">{{ old('description') }}</textarea>
+                                            <textarea class="form-control textarea" id="summernote" cols="50" rows="10" name="description">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
 
@@ -291,10 +315,11 @@
                 url: "{{ url('/get-child-category/') }}/" + id,
                 type: 'get',
                 success: function(data) {
+                    console.log(data);
                     $('select[name="childcategory_id"]').empty();
                     $.each(data, function(key, data) {
                         $('select[name="childcategory_id"]').append('<option value="' + data
-                            .id + '">' + data.childcategory_name + '</option>');
+                            .id + '">' + data.name + '</option>');
                     });
                 }
             });

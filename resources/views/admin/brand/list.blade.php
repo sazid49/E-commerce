@@ -137,7 +137,7 @@
                         data: 'logo',
                         name: 'logo',
                         render: function(data, type, full, meta) {
-                            return "<img src=\"{{ asset('storage') }}/" + data +
+                            return "<img src=\"{{ asset('storage/images/brand') }}/" + data +
                                 "\" height=\"50\" class=\"rounded-circle\"/>"
                         }
                     },

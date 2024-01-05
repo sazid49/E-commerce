@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreignId('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
+            $table->foreignId('warehouse_id')->nullable();
+            $table->foreignId('childcategory_id')->nullable();
             $table->foreignId('brand_id')->nullable();
+            $table->foreignId('pickup_point_id')->nullable();
             $table->string('name');
             $table->string('code');
+            $table->string('slug');
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
             $table->string('video')->nullable();
@@ -25,7 +29,8 @@ return new class extends Migration
             $table->decimal('selling_price')->nullable();
             $table->decimal('discount_price')->nullable();
             $table->integer('quantity')->nullable();
-            $table->integer('warehouse')->nullable();
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
@@ -35,6 +40,8 @@ return new class extends Migration
             $table->foreignId('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
             $table->foreignId('admin_id')->nullable();
+            $table->string('date')->nullable();
+            $table->string('month')->nullable();
             $table->timestamps();
         });
     }

@@ -17,6 +17,69 @@
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/toastr/toastr.css') }}">
 
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0;
+            background: skyblue;
+        }
+
+        .userName {
+            padding: 30px;
+        }
+
+        .password {
+            padding: 0 30px 30px;
+        }
+
+        .wrapper form {
+            border: 1px solid #00000024;
+            background: #fff;
+            width: 600px;
+            max-width: 100%;
+            padding: 50px 0;
+        }
+
+        .wrapper h1 {
+            text-align: center;
+        }
+
+        .userName label,
+        .password label {
+            display: block;
+            padding-bottom: 10px;
+        }
+
+        .userName input,
+        .password input {
+            padding: 5px 10px;
+        }
+
+        .form-wrapper {
+            max-width: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .toggle-hide-show {
+            position: relative;
+            right: 30px;
+        }
+
+        /* input:invalid {
+            border-color: red;
+        } */
+    </style>
+
+
 </head>
 <div class="hold-transition login-page">
     <div class="login-box">
@@ -49,16 +112,15 @@
                         <input id="password" type="password" placeholder="Password"
                             class="form-control @error('password') is-invalid @enderror" name="password" required
                             autocomplete="current-password">
+                        <div class="input-group-text">
+                            {{-- <span class="fas fa-lock"></span> --}}
+                            <span id="icon_click" class="fas fa-eye text-info"></span>
+                        </div>
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -102,14 +164,11 @@
         <!-- /.card -->
     </div>
     <!-- /.login-box -->
-
     <!-- jQuery -->
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
-
-
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <script>
@@ -120,6 +179,17 @@
             }
             toastr.info("{{ session('info') }}");
         @endif
+    </script>
+    <script>
+        $("#icon_click").click(function() {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            input = $(this).parent().parent().find("input");
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
     </script>
 </div>
 
