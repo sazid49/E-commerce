@@ -148,6 +148,13 @@ Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','as'=>
            Route::get('/edit/{id}', 'edit')->name('edit');
            Route::post('/update', 'update')->name('update');
            Route::delete('/delete/{id}', 'destroy')->name('destroy');
+           Route::get('/active-status/{id}', 'activeSTatus');
+           Route::get('/deactive-status/{id}', 'deactiveSTatus');
+           Route::get('/active-today_deal/{id}', 'activeToDayDeal');
+           Route::get('/deactive-today_deal/{id}', 'deActiveToDayDeal');
+           Route::get('/active-featured/{id}', 'activeFeatured');
+           Route::get('/deactive-featured/{id}', 'deActiveFeatured');
+
         });
 
 });

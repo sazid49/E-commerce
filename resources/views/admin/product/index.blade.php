@@ -31,6 +31,40 @@
                                 <a href="{{ route('admin.product.create') }}"
                                     class="btn btn-sm btn-primary float-right">Add</a>
                             </div>
+                            <div class="row mt-2">
+                                <div class="form-group col-3">
+                                    <select name="category_id" id="category_id" class="form-control submitable">
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    <select name="brand_id" id="brand_id" class="form-control submitable">
+                                        <option value="">Select brand</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    <select name="warehouse_id" id="warehouse_id" class="form-control submitable">
+                                        <option value="">Select Warehouse</option>
+                                        @foreach ($warehousees as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    <select name="status" id="status" class="form-control submitable">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Deactive</option>
+                                    </select>
+                                </div>
+
+                            </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="" class="table table-bordered table-striped text-center ytable">
@@ -80,15 +114,29 @@
     </div>
 @endsection
 @push('js')
+    <script src="{{ asset('backend/plugins/jQuery-Plugin-Dropify/dist/js/dropify.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             table = $('.ytable').DataTable({
                 processing: true,
                 serverSide: true,
+                serching: true,
                 order: [
                     [0, "desc"]
                 ],
-                ajax: "{{ route('admin.product.index') }}",
+                "ajax": {
+                    "url": "{{ route('admin.product.index') }}",
+                    "data": function(e) {
+                        e.category_id = $('#category_id').val();
+                        e.brand_id = $('#brand_id').val();
+                        e.warehouse_id = $('#warehouse_id').val();
+                        e.status = $('#status').val();
+                    }
+                },
+
+                // ajax: "{{ route('admin.product.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -135,11 +183,113 @@
                     },
                     {
                         data: 'action',
-                        name: 'action'
+                        name: 'action',
+                        orderable: true,
+                        serchable: true
                     },
 
                 ]
             });
+        });
+    </script>
+
+    <script>
+        $("input[data-bootstrap-switch]").each(function() {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+    </script>
+
+    <script>
+        $('body').on('click', '.active_status', function() {
+            let id = $(this).data('id');
+            let url = "{{ url('admin/product/active-status') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    toastr.success(data);
+                    table.ajax.reload();
+                }
+            })
+        });
+        $('body').on('click', '.deactive_status', function() {
+            let id = $(this).data('id');
+            let url = "{{ url('admin/product/deactive-status') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    toastr.success(data);
+                    table.ajax.reload();
+                }
+            })
+        });
+        $('body').on('click', '.deactive_today_deal', function() {
+            let id = $(this).data('id');
+            let url = "{{ url('admin/product/deactive-today_deal') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    toastr.success(data);
+                    table.ajax.reload();
+                }
+            })
+        });
+        $('body').on('click', '.active_today_deal', function() {
+            let id = $(this).data('id');
+            let url = "{{ url('admin/product/active-today_deal') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    toastr.success(data);
+                    table.ajax.reload();
+                }
+            })
+        });
+        $('body').on('click', '.deactive_featured', function() {
+            let id = $(this).data('id');
+            let url = "{{ url('admin/product/deactive-featured') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    toastr.success(data);
+                    table.ajax.reload();
+                }
+            })
+        });
+        $('body').on('click', '.active_featured', function() {
+            let id = $(this).data('id');
+            let url = "{{ url('admin/product/active-featured') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                    toastr.success(data);
+                    table.ajax.reload();
+                }
+            })
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#category_id').select2();
+        });
+        $(document).ready(function() {
+            $('#brand_id').select2();
+        });
+        $(document).ready(function() {
+            $('#warehouse_id').select2();
+        });
+    </script>
+
+    {{-- FIltering --}}
+    <script>
+        $(document).on('change', '.submitable', function() {
+            $('.ytable').DataTable().ajax.reload();
         });
     </script>
 @endpush

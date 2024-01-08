@@ -9,6 +9,7 @@ use App\Models\backend\Brand;
 use App\Models\backend\Product;
 use App\Models\backend\Category;
 use App\Models\backend\Warehouse;
+use Illuminate\Support\Facades\DB;
 use App\Models\backend\PickupPoint;
 use App\Models\backend\SubCategory;
 use App\Http\Controllers\Controller;
@@ -23,8 +24,50 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if($request->ajax())
-      {
-        $products = Product::query()->get();
+      { 
+        // $products = Product::query()->get();
+
+        // if($request->category_id){
+        //      $products->where('category_id',$request->category_id);
+        // }
+
+        $products="";
+              // $query=DB::table('products')->leftJoin('categories','products.category_id','categories.id')
+              //       ->leftJoin('sub_categories','products.subcategory_id','sub_categories.id')
+              //       ->leftJoin('brands','products.brand_id','brands.id');
+                    $query = Product::query();
+
+
+                if ($request->category_id) {
+                    // $query->where('products.category_id',$request->category_id);
+                    $query->where('category_id',$request->category_id);
+                 }
+
+                if ($request->brand_id) {
+                    // $query->where('products.brand_id',$request->brand_id);
+                    $query->where('brand_id',$request->brand_id);
+                }
+
+                if ($request->warehouse_id) {
+                    // $query->where('products.warehouse',$request->warehouse);
+                    $query->where('warehouse_id',$request->warehouse_id);
+                }
+
+                if ($request->status=="1") {
+                    // $query->where('products.status',1);
+                    $query->where('status',1);
+                }
+                if ($request->status=="0") {
+                    // $query->where('products.status',0);
+                    $query->where('status',0);
+                }
+
+
+            // $products=$query->select('products.*','categories.name as category_name','sub_categories.name as subcategory_name','brands.name as brand_name')
+            //         ->get();
+                    $products=$query->get();
+
+
         return DataTables::of($products)
                            ->addIndexColumn()
                            ->editColumn('category_name',function($row){
@@ -39,25 +82,33 @@ class ProductController extends Controller
                            ->editColumn('featured',function($row){
                                 if($row->featured == 1)
                                 {
-                                  return "Yes";
+                                  return '<a href="#" data-id="'.$row->id.'" class="deactive_featured"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">active</span> </a>';
+
                                 }else{
-                                  return 'No';
+                                  return '<a href="#" data-id="'.$row->id.'" class="active_featured"><i class="fas fa-thumbs-up text-danger"></i> <span class="badge badge-danger">deactive</span> </a>';
+
                                 }
                            })
                            ->editColumn('today_deal',function($row){
                                 if($row->today_deal == 1)
                                 {
-                                  return "Yes";
+                                  return '<a href="#" data-id="'.$row->id.'" class="deactive_today_deal"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">active</span> </a>';
+
                                 }else{
-                                  return 'No';
+                                  return '<a href="#" data-id="'.$row->id.'" class="active_today_deal"><i class="fas fa-thumbs-up text-danger"></i> <span class="badge badge-danger">deactive</span> </a>';
+
                                 }
                            })
                            ->editColumn('status',function($row){
                                 if($row->status == 1)
                                 {
-                                  return 'yes';
+                                  return '<a href="#" data-id="'.$row->id.'" class="deactive_status"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">active</span> </a>';
+                                    //  return '<input type="checkbox" data-id="'.$row->id.'" class="deactive_status" name="featured" value="1" checked
+                                    //         data-bootstrap-switch data-off-color="danger" data-on-color="success">';
                                 }else{
-                                  return 'No';
+                                  return '<a href="#" data-id="'.$row->id.'" class="active_status"><i class="fas fa-thumbs-up text-danger"></i> <span class="badge badge-danger">deactive</span> </a>';
+                                    //  return '<input type="checkbox" data-id="'.$row->id.'" name="featured" value="1" class="active_status"
+                                    //         data-bootstrap-switch data-off-color="danger" data-on-color="success">';
                                 }
                            })
                            ->addColumn('action',function($row){
@@ -68,11 +119,15 @@ class ProductController extends Controller
                                                   <i class="fas fa-trash-alt"></i></a>';
                              return $actionBtn;
                            })
-                           ->rawColumns(['action','category_name'])
+                           ->rawColumns(['action','category_name','subcategory_name','brand_name','featured','today_deal','status'])
                            ->make(true);
                           
       }
-        return view('admin.product.index');
+
+        $categories = Category::query()->select('id','name')->get();
+        $brands = Brand::query()->select('id','name')->get();
+        $warehousees   = Warehouse::query()->select('id','name')->get();
+        return view('admin.product.index',compact('categories','brands','warehousees'));
     }
 
     public function create()
@@ -168,6 +223,57 @@ class ProductController extends Controller
     }
     public function destroy($id)
     {
+       
+    }
+    public function deactiveSTatus($id)
+    {
 
+      Product::query()->where('id',$id)->update([
+         'status'=>0,
+      ]);
+
+        return response()->json('Product Status Update');
+    } 
+    public function activeSTatus($id)
+    {
+
+      Product::query()->where('id',$id)->update([
+         'status'=>1,
+      ]);
+
+        return response()->json('Product Status Update');
+    }
+
+    public function activeToDayDeal($id)
+    {
+       Product::query()->where('id',$id)->update([
+         'today_deal'=>1,
+      ]);
+
+        return response()->json('Product To Day Deal Active');
+    }
+    public function deActiveToDayDeal($id)
+    {
+       Product::query()->where('id',$id)->update([
+         'today_deal'=>0,
+      ]);
+
+        return response()->json('Product To Day Deal Deactive');
+    }
+    public function activeFeatured($id)
+    {
+       Product::query()->where('id',$id)->update([
+         'featured'=>1,
+      ]);
+
+        return response()->json('Product featured Active');
+    }
+    public function deActiveFeatured($id)
+    {
+       Product::query()->where('id',$id)->update([
+         'featured'=>0,
+      ]);
+
+        return response()->json('Product featured Deactive');
     }
 }
