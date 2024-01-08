@@ -173,12 +173,15 @@ class ProductController extends Controller
           'color'=>'sometimes',
           'size'=>'sometimes',
           'description'=>'sometimes',
+          'slider'=>'sometimes',
           'featured'=>'sometimes',
           'today_deal'=>'sometimes',
           'status'=>'sometimes',
           'flash_deal_id'=>'sometimes',
           'cash_on_delivery'=>'sometimes',
        ]);
+
+       dd($product);
 
        $subcategoryId = SubCategory::query()->where('id',$request->subcategory_id)->first();
        $categoryId =$subcategoryId->category_id; 

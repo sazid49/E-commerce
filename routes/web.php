@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserLoginController;
-use App\Models\User;
+use App\Http\Controllers\frontend\HomeController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +19,22 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home');
+// Route::get('/', function () {
+//     return view('frontend.home');
+// });
+
+
+Route::group(['namespace'=>'App\Http\Controllers\frontend'],function(){
+
+           Route::get('/',[HomeController::class,'index']);
 });
+
 
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login',[UserLoginController::class,'userLogin'])->name('login')->middleware('guest');
 
 Route::get('user/{user}',function(User $user){

@@ -34,6 +34,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
+            $table->integer('slider')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('today_deal')->nullable();
             $table->integer('status')->nullable();
